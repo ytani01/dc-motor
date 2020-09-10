@@ -9,9 +9,7 @@ __date__   = '2020/08'
 
 import pigpio
 from DcMtr import DcMtrN
-import click
 from MyLogger import get_logger
-CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 
 class App:
@@ -41,7 +39,7 @@ class App:
         self._log.debug('')
 
         while self._active:
-            line = input('> ')
+            line = input('-100..0..100|b=break> ')
             if len(line) == 0:
                 self._active = False
 
@@ -50,9 +48,10 @@ class App:
                 try:
                     num = int(s)
                     speed += [num]
-                except ValueError as e:
-                    self._log.error('%s:%s', type(e), e)
-                    self._dc_mtr.set_break(0.5)
+
+                except ValueError:
+                    self._log.info('break!')
+                    self._dc_mtr.set_break(1)
                     speed = []
                     break
 
@@ -67,6 +66,10 @@ class App:
 
     def end(self):
         self._dc_mtr.set_stop(1)
+
+
+import click
+CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 
 @click.command(context_settings=CONTEXT_SETTINGS)
