@@ -22,7 +22,7 @@ $ . ~/env1/bin/activate
 
 ```bash
 (env1)$ cd ~/env1
-(env1)$ git clone https://www.github.com/ytani01/dc-motor.github
+(env1)$ git clone https://www.github.com/ytani01/dc-motor.git
 ```
 
 ### 1.4 install python packages
